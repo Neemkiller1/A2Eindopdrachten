@@ -11,7 +11,9 @@ public class Opdracht1 {
         processFormula("( ( 2 +1) * 4) + (2 * 3) ");
         processFormula("( ( 2 +1) * 4) + (26 + 2 * 3)  ");
         processFormula("(3+4)*3+(13*6) ");
-        processFormula("((9+14)*2) - (5 + 8 * 8) ");
+        processFormula("((9-14)*2) - (5 + 8 * 8) ");
+        processFormula("(3-5)-(3-5)");
+        processFormula("5*(3-5)");
     } 
     public static void processFormula(String formula){
         String resultaat = FormuleBereken.calculateAdvanced(formula);

@@ -8,6 +8,8 @@ import java.util.regex.*;
 public class FormuleBereken {
     public static String calculateAdvanced(String formula) {
         formula = formula.replaceAll("\\s+","");
+        formula = formula.replaceAll("\\-\\-","+");
+        formula = formula.replaceAll("\\+\\-","-");
         String[] formulas = formula.split("=");
         String latestFormula = formulas[formulas.length - 1];
         if (latestFormula.matches("^\\-?\\d*$")) {
@@ -15,12 +17,12 @@ public class FormuleBereken {
             return formula;
         }
         // Kijken of er niet-geneste haakjes zijn die opgelost kunnen worden
-        Matcher matcher = Pattern.compile("\\(\\d+(?:[\\+\\-\\*]\\d+)*\\)").matcher(latestFormula);
+        Matcher matcher = Pattern.compile("\\(\\-?\\d+(?:[\\+\\-\\*]\\-?\\d+)*\\)").matcher(latestFormula);
         if (matcher.find()) {
             // Haakjes gevonden, vind nu een alleenstaand haakje
             String found = matcher.group().replaceAll("[\\(\\)]", "");
             String answer = calculateSimple(found);
-            if (answer.matches("^.*[\\*\\+\\-].*$")) {
+            if (!answer.matches("^\\-?\\d*$")) {
                 answer = "(" + answer + ")";
             }
             latestFormula = latestFormula.replace("(" + found + ")", answer);
@@ -32,7 +34,7 @@ public class FormuleBereken {
     }
 
     private static String calculateSimple(String formula) {
-        Matcher matcher = Pattern.compile("(?=(\\d+)([\\*\\+\\-])(\\d+)).").matcher(formula);
+        Matcher matcher = Pattern.compile("(?=(?:^|\\D)(\\-?\\d+)([\\*\\+\\-])(\\-?\\d+)).").matcher(formula);
         ArrayList<Match> matches = new ArrayList<>();
         Integer i = 0;
         while (matcher.find()) matches.add(new Match(matcher, i++));
