@@ -11,6 +11,6 @@ public class Opdracht2 {
                 = "Dit is een tekst met \" en ** en ?? "
                 + "en allerlei andere niet wenselijke tekens zoals ® etc. ";
         System.out.println(CharacterCleaning.cleanString(tekst));
-        System.out.println(CharacterCleaning.cleanString(tekst, "[\\?|\\*|\\®|\"]"));
+        System.out.println(CharacterCleaning.cleanString(tekst, "[\\?\\*\\®\"]"));
     }
 }

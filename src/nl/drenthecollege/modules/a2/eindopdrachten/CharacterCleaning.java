@@ -7,7 +7,7 @@ public class CharacterCleaning {
     public static String cleanString(String input) {
         String result = "";
         for (Character x : input.toCharArray()) {
-            if (x.toString().matches("[a-z|A-Z|\\.|\\n|\\s]")) result += x;
+            if (x.toString().matches("[a-zA-Z\\.\\n\\s]")) result += x;
         }
         return result;
     }
